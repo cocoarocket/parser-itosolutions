@@ -33,6 +33,20 @@ module Importer
         puts "ERROR on line 36-39 load_products: #{e.message}"
       end
 
+      @csv_line.each do |el|
+        el = el.delete("\r")
+        el = el.delete("\n")
+        el = el.gsub('\u00','')
+        el = el.gsub('\uA0','')
+        begin
+          puts el
+        rescue Exception => e
+          puts "== ERROR Code in load_products on line #{__LINE__ - 2}: <<<< #{e.message} >>>>"
+          puts "#{el}"
+        end
+      end
+
+=begin
       File.open("#{@export_dir}#{brand[:name]}.csv", 'a') do |file|
         @csv_line.each do |el|
           el = el.delete("\r")
@@ -42,11 +56,12 @@ module Importer
           begin
             file.puts el
           rescue Exception => e
-            puts "== ERROR Code in load_products on line 54: <<<< #{e.message} >>>>"
+            puts "== ERROR Code in load_products on line #{__LINE__ - 2}: <<<< #{e.message} >>>>"
             puts "#{el}"
           end
         end
       end
+=end
     end
 
     puts

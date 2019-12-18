@@ -40,4 +40,5 @@ end
 =begin
 ProductsModel.all.each do |o|
   puts "o: #{o}"
-end=end
+end
+=end
